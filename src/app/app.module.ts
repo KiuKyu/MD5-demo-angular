@@ -5,13 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import {FormsModule} from '@angular/forms';
-import { ProductCreateComponent } from './product-create/product-create.component';
+import { ProductCreateComponent } from './product/product-create/product-create.component';
+import { ProductEditComponent } from './product/product-edit/product-edit.component';
+import { ProductViewComponent } from './product/product-view/product-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    ProductEditComponent,
+    ProductViewComponent
   ],
   imports: [
     BrowserModule,

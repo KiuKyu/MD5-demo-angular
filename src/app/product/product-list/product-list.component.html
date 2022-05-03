@@ -1,15 +1,27 @@
 <h1>Danh sách sản phẩm</h1>
+<button (click)="toggleCreateForm()">Thêm mới sản phẩm</button>
+<!--Button gọi tới function toggleCreateForm để hiển thị form tạo mới sản phẩm hoặc ẩn nó đi nếu đang bật-->
 <table>
   <tr>
     <th>Id</th>
     <th>Name</th>
     <th>Price</th>
     <th>Description</th>
+    <th>Edit</th>
   </tr>
   <tr *ngFor="let product of products">
     <td>{{product.id}}</td>
     <td>{{product.name}}</td>
     <td>{{product.price}}</td>
     <td>{{product.description}}</td>
+    <td>
+      <button (click)="toggleEditForm(product)">Edit</button>
+<!--      Button gọi tới function toggleEditForm để hiển thị form edit sản phẩm hoặc ẩn nó đi-->
+    </td>
   </tr>
 </table>
+<!--đặt điều kiện hiện form edit / create tùy theo boolean isShowCreated hoặc Edited-->
+<app-product-create *ngIf="isShowCreatedForm"></app-product-create>
+<app-product-edit *ngIf="isShowEditedForm" [product]="currentProduct" (editEvent)="editProduct($event)"></app-product-edit>
+<!--property-binding [product] để lấy ra thông tin của sản phẩm cần edit từ -->
+<!--sự kiện editEvent được tạo bởi component con (product-edit) và gọi tới function editProduct của component cha (product-list)-->
