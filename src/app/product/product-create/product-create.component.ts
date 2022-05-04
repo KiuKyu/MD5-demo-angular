@@ -15,8 +15,12 @@ export class ProductCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  createProduct() {
+  createProduct(productForm) {
+    if (productForm.valid) {
+      console.log(productForm.value);
+    } else {
+      alert("Xảy ra lỗi");
+    }
 
-    console.log(this.product);
   }
 }

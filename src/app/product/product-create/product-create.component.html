@@ -1,12 +1,32 @@
 <h1>Form create product</h1>
-<form (ngSubmit)="createProduct(product)">
+<form #productForm="ngForm" (ngSubmit)="createProduct(productForm)">
+  <!--  Đặt tên cho ngForm là productForm-->
   <div>
     <label for="id">Id:</label>
-    <input type="number" id="id" name="id" [(ngModel)]="product.id">
+    <input type="number" id="id" name="id" #id='ngModel' [(ngModel)]="product.id">
+    <p style="color:red" [hidden]="id.valid || !id.touched" ]>ID is required</p>
+    <!--    Để sử dụng validation thì cần đặt flag gán cho ngModel-->
+    <!--    thuộc tính hidden có sẵn của angular sẽ được gán các điều kiện để phủ định-->
   </div>
   <div>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="product.name">
+    <input type="text" id="name" name="name"
+           required
+           minlength="6"
+           maxlength="15"
+           #name="ngModel"
+           [(ngModel)]="product.name">
+    <div [hidden]="name.valid || !name.touched">
+      <div style="color:red" *ngIf="name.errors?.['required']">
+        Name is required
+      </div>
+      <div style="color:red" *ngIf="name.errors?.['minlength']">
+        Name must be at least 6 characters long
+      </div>
+      <div style="color:red" *ngIf="name.errors?.['']">
+
+      </div>
+    </div>
   </div>
   <div>
     <label for="price">Price:</label>
