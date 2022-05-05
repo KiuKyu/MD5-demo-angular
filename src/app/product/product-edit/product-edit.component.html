@@ -1,20 +1,40 @@
 <h1>Form edit product</h1>
-<form (ngSubmit)="submitChange()">
+<form [formGroup]="productForm" (ngSubmit)="submitChange()">
+<!--  khai báo 1 formGroup + import ReactiveFormModule để hết lỗi (tự động import sang app.module)-->
   <div>
+<!--    Xóa hết các thuộc tính "name" của thẻ input do ReactiveFormModule không dùng được "name", giữ lại "id"-->
+<!--    gán formControlName từ TS vào các thẻ input. formControlName thực hiện chức năng gán name + ngModel -->
     <label for="id">Id:</label>
-    <input type="number" id="id" name="id" [(ngModel)]="product.id">
+    <input type="number" id="id" formControlName="id">
+<!--    Gọi tới method get xControl bên TS để lấy ra giá trị của thuộc tính để sử dụng Validator-->
+    <p style="color:red" [hidden]="idControl.valid || !idControl.touched">ID is required</p>
   </div>
   <div>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="product.name">
+    <input type="text" id="name" formControlName="name">
+    <div [hidden]="nameControl.valid || !nameControl.touched">
+      <div style="color:red" *ngIf="nameControl.errors?.required">
+        Name is required
+      </div>
+      <div style="color:red" *ngIf="nameControl.errors?.minlength">
+        Name must be at least 6 characters long
+      </div>
+      <div style="color:red" *ngIf="nameControl.errors?.maxlength">
+        Name mustnt surpass 15 characters long
+      </div>
+    </div>
   </div>
   <div>
     <label for="price">Price:</label>
-    <input type="text" id="price" name="price" [(ngModel)]="product.price">
+    <input type="text" id="price" formControlName="price">
+    <p style="color:red" [hidden]="priceControl.valid || !priceControl.touched">ID is required</p>
+
   </div>
   <div>
     <label for="description">Description:</label>
-    <input type="text" id="description" name="description" [(ngModel)]="product.description">
+    <input type="text" id="description" formControlName="description">
+    <p style="color:red" [hidden]="descriptionControl.valid || !descriptionControl.touched">ID is required</p>
+
   </div>
   <button>Submit</button>
 </form>

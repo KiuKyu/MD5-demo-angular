@@ -3,8 +3,8 @@
   <!--  Đặt tên cho ngForm là productForm-->
   <div>
     <label for="id">Id:</label>
-    <input type="number" id="id" name="id" #id='ngModel' [(ngModel)]="product.id">
-    <p style="color:red" [hidden]="id.valid || !id.touched" ]>ID is required</p>
+    <input type="number" id="id" name="id" required #id='ngModel' [(ngModel)]="product.id">
+    <p style="color:red" [hidden]="id.valid || !id.touched">ID is required</p>
     <!--    Để sử dụng validation thì cần đặt flag gán cho ngModel-->
     <!--    thuộc tính hidden có sẵn của angular sẽ được gán các điều kiện để phủ định-->
   </div>
@@ -17,24 +17,26 @@
            #name="ngModel"
            [(ngModel)]="product.name">
     <div [hidden]="name.valid || !name.touched">
-      <div style="color:red" *ngIf="name.errors?.['required']">
+      <div style="color:red" *ngIf="name.errors?.required">
         Name is required
       </div>
-      <div style="color:red" *ngIf="name.errors?.['minlength']">
+      <div style="color:red" *ngIf="name.errors?.minlength">
         Name must be at least 6 characters long
       </div>
-      <div style="color:red" *ngIf="name.errors?.['']">
-
+      <div style="color:red" *ngIf="name.errors?.maxlength">
+        Name mustnt surpass 15 characters long
       </div>
     </div>
   </div>
   <div>
     <label for="price">Price:</label>
-    <input type="text" id="price" name="price" [(ngModel)]="product.price">
+    <input type="text" id="price" name="price" required #price="ngModel" [(ngModel)]="product.price">
+    <p style="color:red" [hidden]="price.valid || !price.touched">ID is required</p>
   </div>
   <div>
     <label for="description">Description:</label>
-    <input type="text" id="description" name="description" [(ngModel)]="product.description">
+    <input type="text" id="description" name="description" required #description="ngModel" [(ngModel)]="product.description">
+    <p style="color:red" [hidden]="description.valid || !description.touched">ID is required</p>
   </div>
   <button>Submit</button>
 </form>
